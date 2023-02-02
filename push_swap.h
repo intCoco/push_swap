@@ -6,14 +6,20 @@
 /*   By: chuchard <chuchard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:36:11 by chuchard          #+#    #+#             */
-/*   Updated: 2022/11/24 21:25:02 by chuchard         ###   ########.fr       */
+/*   Updated: 2023/02/02 20:24:10 by chuchard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "libft.h"
+# include "libft/libft.h"
+
+typedef struct s_link
+{
+	int 			value;
+	struct s_link	*next;
+}	t_link;
 
 int		height(int *tab, int ac);
 void	ft_sa(int **tab, int ac);

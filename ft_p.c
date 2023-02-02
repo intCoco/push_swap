@@ -6,32 +6,38 @@
 /*   By: chuchard <chuchard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 21:22:42 by chuchard          #+#    #+#             */
-/*   Updated: 2022/11/24 21:58:48 by chuchard         ###   ########.fr       */
+/*   Updated: 2023/02/02 21:00:11 by chuchard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	height(int *tab, int ac)
+void	ft_push(t_link *src_top, t_link *dest_top)
 {
-	int	i;
+	t_link *next;
 
-	i = 0;
-	while (i < ac && tab[i] == -1)
-		i++;
-	return (i);
+	if (src_top)
+	{
+		next = src_top->next;
+		ft_lstadd_front(dest_top, src_top);
+		*src_top = *next;
+	}
 }
 
-void	ft_pa(int **tab, int ac)
+void	ft_rot(t_link *stack)
 {
-	tab[1][height(tab[1], ac)] = tab[0][height(tab[0], ac)];
-	tab[0][height(tab[0], ac)] = -1;
-	write(1, "pa\n", 3);
-}
+	t_link	*next;
+	t_link	*top;
+	int		top;
 
-void	ft_pb(int **tab, int ac)
-{
-	tab[0][height(tab[0], ac)] = tab[1][height(tab[1], ac)];
-	tab[1][height(tab[1], ac)] = -1;
-	write(1, "pb\n", 3);
+	top = stack->value;
+	while (stack->next)
+	{
+		stack->value = stack->next->value;
+	}
+	top->next = NULL;
+	next = stack->next;
+	stack->next = NULL;
+	ft_lstadd_back(stack, top);
+	*stack = *next;
 }

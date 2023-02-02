@@ -6,7 +6,7 @@
 /*   By: chuchard <chuchard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 21:22:42 by chuchard          #+#    #+#             */
-/*   Updated: 2023/02/02 21:00:11 by chuchard         ###   ########.fr       */
+/*   Updated: 2023/02/02 21:11:42 by chuchard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,3 +41,4 @@ void	ft_rot(t_link *stack)
 	ft_lstadd_back(stack, top);
 	*stack = *next;
 }
+

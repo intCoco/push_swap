@@ -12,20 +12,51 @@
 
 #include "push_swap.h"
 
-int	*convert(int ac, char **av)
+static int	ft_conv_in_int(const char *str, int i)
 {
-	int	**tab;
+	int	nbint;
+
+	nbint = 0;
+	while ((str[i] >= '0') && (str[i] <= '9'))
+	{
+		nbint = nbint * 10 + ((char *)str)[i] - '0';
+		i++;
+	}
+	if (str[i] != '\0')
+		
+	return (nbint);
+}
+
+int	ft_ps_atoi(const char *str)
+{
 	int	i;
+	int	sign;
+	int	nbint;
 
 	i = 0;
-	tab = (char **)malloc(sizeof(int *) * 2);
-	tab[0] = malloc(sizeof(int) * ac);
-	tab[1] = malloc(sizeof(int) * ac);
-	while (i < ac)
+	sign = 1;
+	if (str[i] == '+' || str[i] == '-')
 	{
-		tab[0][i] = ft_atoi(av[i]);
-		tab[1][i] = -1;
+		if (str[i] == '-')
+			sign *= -1;
 		i++;
+	}
+	nbint = ft_conv_in_int(str, i);
+	nbint *= sign;
+	return (nbint);
+}
+
+int	*convert(int ac, char **av)
+{
+	t_stack	stack[2];
+	int	i;
+
+	i = -1;
+	stack[0]->array = malloc(sizeof(int) * ac);
+	stack[1]->array = malloc(sizeof(int) * ac);
+	while (++i < ac)
+	{
+		stack[0]->array[i] = ft_atoi(av[i]);
 	}
 	return (tab);
 }

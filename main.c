@@ -6,64 +6,64 @@
 /*   By: chuchard <chuchard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:33:41 by chuchard          #+#    #+#             */
-/*   Updated: 2022/11/24 21:40:56 by chuchard         ###   ########.fr       */
+/*   Updated: 2023/02/14 20:21:35 by chuchard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	ft_conv_in_int(const char *str, int i)
+static void	convert(t_prog prog, int ac, char **av)
 {
-	int	nbint;
-
-	nbint = 0;
-	while ((str[i] >= '0') && (str[i] <= '9'))
-	{
-		nbint = nbint * 10 + ((char *)str)[i] - '0';
-		i++;
-	}
-	if (str[i] != '\0')
-		
-	return (nbint);
-}
-
-int	ft_ps_atoi(const char *str)
-{
-	int	i;
-	int	sign;
-	int	nbint;
-
-	i = 0;
-	sign = 1;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign *= -1;
-		i++;
-	}
-	nbint = ft_conv_in_int(str, i);
-	nbint *= sign;
-	return (nbint);
-}
-
-int	*convert(int ac, char **av)
-{
-	t_stack	stack[2];
 	int	i;
 
 	i = -1;
-	stack[0]->array = malloc(sizeof(int) * ac);
-	stack[1]->array = malloc(sizeof(int) * ac);
+	prog.a.array = malloc(sizeof(int) * ac);
+	prog.b.array = malloc(sizeof(int) * ac);
 	while (++i < ac)
 	{
-		stack[0]->array[i] = ft_atoi(av[i]);
+		prog.a.array[i] = ft_atoi(av[i]);
+		prog.a.size++;
 	}
-	return (tab);
+}
+
+static int	check(int ac, char **av)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	j = -1;
+	while (++i < ac)
+	{
+		while (av[i][++j])
+			if (!ft_isdigit(av[i][j]))
+				return (0);
+	}
+	return (1);
+}
+
+static int	ft_issorted(t_prog prog)
+{
+	int	i;
+	
+	i = -1;
+	while (++i < prog.a.size)
+		if (prog.a.array[i] > prog.a.array[i + 1])
+			return (0);
+	return (1);
 }
 
 int	main(int ac, char **av)
 {
-	int	**tab;
+	t_prog	prog;
 
-	tab = convert(ac, av);
+	if (check(ac, av) == 1)
+		perror("error");
+	convert(prog, ac, av);
+	if (ft_issorted(prog) == 1)
+		return (0);
+	if (prog.a.size <= 5)
+		sort_small_stack(prog);
+	else
+		sort_big_stack();
 }

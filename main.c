@@ -12,21 +12,33 @@
 
 #include "push_swap.h"
 
-static void	convert(t_prog prog, int ac, char **av)
+void	ft_exit(t_prog prog, char *str)
+{
+	ft_printf("Error\n%s\n", str);
+	if (prog->a.array)
+		free(prog->a.array);
+	if (prog->b.array)
+		free(prog->b.array);
+	exit(1);
+}
+
+void	convert(t_prog prog, int ac, char **av)
 {
 	int	i;
 
 	i = -1;
-	prog.a.array = malloc(sizeof(int) * ac);
-	prog.b.array = malloc(sizeof(int) * ac);
+	prog->a.array = malloc(sizeof(int) * ac);
+	prog->b.array = malloc(sizeof(int) * ac);
+	if (!prog->a.array || !prog->b.array)
+		ft_exit(prog, "Malloc Error");
 	while (++i < ac)
 	{
-		prog.a.array[i] = ft_atoi(av[i]);
-		prog.a.size++;
+		prog->a.array[i] = ft_atoi(av[i]);
+		prog->a.size++;
 	}
 }
 
-static int	check(int ac, char **av)
+void	check(int ac, char **av)
 {
 	int	i;
 	int	j;
@@ -37,20 +49,19 @@ static int	check(int ac, char **av)
 	{
 		while (av[i][++j])
 			if (!ft_isdigit(av[i][j]))
-				return (0);
+				ft_exit(0, "Invalid input");
 	}
-	return (1);
 }
 
-static int	ft_issorted(t_prog prog)
+int	ft_issorted(t_prog prog)
 {
 	int	i;
 	
 	i = -1;
 	while (++i < prog.a.size)
 		if (prog.a.array[i] > prog.a.array[i + 1])
-			return (0);
-	return (1);
+			return ;
+	ft_exit(prog, "Stack is already sorted")
 }
 
 int	main(int ac, char **av)

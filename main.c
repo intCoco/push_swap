@@ -22,6 +22,30 @@ void	ft_exit(t_prog prog, char *str)
 	exit(1);
 }
 
+int	ft_psw_atoi(t_prog prog, char *str)
+{
+	int	i;
+	int	sign;
+	long	nbint;
+
+	i = 0;
+	sign = 1;
+	if (str[0] == '-')
+	{
+		sign *= -1;
+		i++;
+	}
+	nbint = 0;
+	while ((str[i] >= '0') && (str[i] <= '9'))
+	{
+		nbint = nbint * 10 + str[i] - '0';
+		i++;
+		if (nbint > (sign > 0 ? INT_MAX : INT_MAX + 1))
+			ft_exit(prog, "Invalid input");
+	}
+	return (nbint * sign);
+}
+
 void	convert(t_prog prog, int ac, char **av)
 {
 	int	i;
@@ -33,7 +57,7 @@ void	convert(t_prog prog, int ac, char **av)
 		ft_exit(prog, "Malloc Error");
 	while (++i < ac)
 	{
-		prog->a.array[i] = ft_atoi(av[i]);
+		prog->a.array[i] = ft_psw_atoi(prog, av[i]);
 		prog->a.size++;
 	}
 }

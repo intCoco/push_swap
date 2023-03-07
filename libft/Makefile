@@ -27,6 +27,7 @@ SRCS =	ft_memset.c \
 		ft_strjoin.c \
 		ft_strtrim.c \
 		ft_split.c \
+		ft_splitcount.c \
 		ft_itoa.c \
 		ft_strmapi.c \
 		ft_striteri.c \
@@ -46,7 +47,6 @@ SRCS =	ft_memset.c \
 		ft_lstiter.c \
 		ft_lstmap.c \
 		ft_abs.c \
-		random/ft_random.c \
 
 OBJS = ${SRCS:.c=.o}
 

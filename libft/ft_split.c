@@ -6,7 +6,7 @@
 /*   By: chuchard <chuchard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:28:45 by chuchard          #+#    #+#             */
-/*   Updated: 2022/11/13 17:02:30 by chuchard         ###   ########.fr       */
+/*   Updated: 2023/03/07 14:14:25 by chuchard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,6 @@ static char	*ft_strndup(char *src, int min, int max)
 	return (dest);
 }
 
-static int	ft_splitcount(const char *str, char c)
-{
-	int	i;
-	int	len;
-	int	start;
-
-	i = 0;
-	len = 0;
-	while (str[i])
-	{
-		while (str[i] && str[i] == c)
-			i++;
-		start = i;
-		while (str[i] && str[i] != c)
-			i++;
-		if (i != start)
-			len++;
-	}
-	return (len);
-}
-
 char	**ft_split(char const *s, char c)
 {
 	size_t	i;
@@ -68,13 +47,13 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	while (s[i])
 	{
-		while (s[i] == c)
-			i++;
-		start = i;
-		while (s[i] != c && s[i])
+		start = i++;
+		while (!(s[i] == c && s[i - 1] != c) && s[i])
 			i++;
 		if (i != start && (s[i] == c || s[i] == '\0'))
 			res[++j] = ft_strndup((char *)s, start, i);
+		if (s[i] == c)
+			i++;
 	}
 	res[ft_splitcount(s, c)] = 0;
 	return (res);

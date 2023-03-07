@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_p.c                                             :+:      :+:    :+:   */
+/*   manip_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chuchard <chuchard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 21:22:42 by chuchard          #+#    #+#             */
-/*   Updated: 2023/02/14 19:32:01 by chuchard         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:22:18 by chuchard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_push(t_stack *src, t_stack *dest)
+void	ft_push(t_stack *src, t_stack *dest, char c)
 {
 	int	i;
 	int	tmp;
@@ -29,9 +29,10 @@ void	ft_push(t_stack *src, t_stack *dest)
 	while (++i < src->size - 1)
 		src->array[i] = src->array[i + 1];
 	src->size--;
+	ft_printf("p%c\n", c);
 }
 
-void	ft_rot(t_stack *stack)
+void	ft_rot(t_stack *stack, char c)
 {
 	int	tmp;
 	int	i;
@@ -43,9 +44,10 @@ void	ft_rot(t_stack *stack)
 	while (++i < stack->size - 1)
 		stack->array[i] = stack->array[i + 1];
 	stack->array[++i] = tmp;
+	ft_printf("r%c\n", c);
 }
 
-void	ft_rev_rot(t_stack *stack)
+void	ft_rev_rot(t_stack *stack, char c)
 {
 	int	tmp;
 	int	i;
@@ -57,6 +59,7 @@ void	ft_rev_rot(t_stack *stack)
 	while (--i > 0)
 		stack->array[i] = stack->array[i - 1];
 	stack->array[0] = tmp;
+	ft_printf("rr%c\n", c);
 }
 
 void	ft_swap(t_stack *stack)

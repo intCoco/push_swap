@@ -6,7 +6,7 @@
 /*   By: chuchard <chuchard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:33:41 by chuchard          #+#    #+#             */
-/*   Updated: 2023/03/08 15:26:09 by chuchard         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:29:17 by chuchard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,11 +143,12 @@ int	ft_find_min_idx(t_stack stack)
 
 	i = -1;
 	idx = 0;
+	min = stack.array[0];
 	while (++i < stack.size)
 		if (min > stack.array[i])
 		{
 			min = stack.array[i];
-			min = i;
+			idx = i;
 		}
 	return (idx);
 }

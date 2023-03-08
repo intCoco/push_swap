@@ -1,5 +1,6 @@
 NAME =	push_swap
 SRC = 	main.c \
+		manip_functions.c \
 
 OBJ = $(SRC:.c=.o)
 

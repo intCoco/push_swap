@@ -6,7 +6,7 @@
 /*   By: chuchard <chuchard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 21:22:42 by chuchard          #+#    #+#             */
-/*   Updated: 2023/03/08 15:19:25 by chuchard         ###   ########.fr       */
+/*   Updated: 2023/03/08 16:29:10 by chuchard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,55 +14,44 @@
 
 void	ft_push(t_stack *stack, char c)
 {
-	int	i;
 	int	tmp;
 	
-	if (!stack)
+	if (!stack->other)
 		return ;
-	i = 0;
-	tmp = stack->array[0];
-	while (++i < stack->other->size + 1)
-		stack->other->array[i] = stack->other->array[i - 1];
-	stack->other->size++;
-	stack->other->array[0] = tmp;
-	i = -1;
-	while (++i < stack->size - 1)
-		stack->array[i] = stack->array[i + 1];
-	stack->size--;
+	stack->size++;
+	stack->other->size--;
+	tmp = stack->other->array[0];
+	ft_memmove(stack->other->array, stack->other->array + 1, stack->other->size * sizeof(int));
+	ft_memmove(stack->array + 1, stack->array, stack->size * sizeof(int));
+	stack->array[0] = tmp;
 	ft_printf("p%c\n", c);
 }
 
 void	ft_rot(t_stack *stack, char c)
 {
 	int	tmp;
-	int	i;
 
 	if (stack->size < 2)
 		return ;
 	tmp = stack->array[0];
-	i = -1;
-	while (++i < stack->size - 1)
-		stack->array[i] = stack->array[i + 1];
-	stack->array[++i] = tmp;
+	ft_memmove(stack->array, stack->array + 1, stack->size * sizeof(int));
+	stack->array[stack->size - 1] = tmp;
 	ft_printf("r%c\n", c);
 }
 
 void	ft_rev_rot(t_stack *stack, char c)
 {
 	int	tmp;
-	int	i;
 
 	if (stack->size < 2)
 		return ;
-	i = stack->size;
-	tmp = stack->array[i - 1];
-	while (--i > 0)
-		stack->array[i] = stack->array[i - 1];
+	tmp = stack->array[stack->size - 1];
+	ft_memmove(stack->array + 1, stack->array, stack->size * sizeof(int));
 	stack->array[0] = tmp;
 	ft_printf("rr%c\n", c);
 }
 
-void	ft_swap(t_stack *stack)
+void	ft_swap(t_stack *stack, char c)
 {
 	int	tmp;
 	
@@ -71,6 +60,7 @@ void	ft_swap(t_stack *stack)
 	tmp = stack->array[0];
 	stack->array[0] = stack->array[1];
 	stack->array[1] = tmp;
+	ft_printf("s%c\n", c);
 }
 
 /* void	ft_pa(t_prog *pg)

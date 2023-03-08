@@ -6,7 +6,7 @@
 /*   By: chuchard <chuchard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 16:48:56 by chuchard          #+#    #+#             */
-/*   Updated: 2023/03/07 13:58:47 by chuchard         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:40:20 by chuchard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int		ft_isdigit(int c);
 int		ft_isprint(int c);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
+void	ft_swap_ptr(int *a, int *b);
+void	ft_sort_int_tab(int *tab, int size);
 
 int		ft_atoi(const char *str);
 char	*ft_itoa(int c);
@@ -55,6 +57,7 @@ char	**ft_split(char const *s, char c);
 int		ft_splitcount(const char *str, char c);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strdup(const char *src);
+int		*ft_tabdup(int *tab, int size);
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);

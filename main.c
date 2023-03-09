@@ -166,7 +166,6 @@ int	ft_find_min_idx(t_stack stack)
 			idx = i;
 		}
 	}
-	//printf("idx = %d\n", idx);
 	return (idx);
 }
 
@@ -197,7 +196,6 @@ void	ft_top_and_push(t_stack *stack, int i, char c)
 		ft_rot(stack, c);
 		i--;
 	}
-	//printf("moitie =%d\n", (stack->size - 1) / 2);
 	while (i > (stack->size - 1) / 2 && i < stack->size)
 	{
 		ft_rev_rot(stack, c);
@@ -211,14 +209,11 @@ void	ft_top_and_push(t_stack *stack, int i, char c)
 
 void	ft_sort_up_to_5(t_prog *pg)
 {
-	int i = 0;
 	while (pg->a.size > 3)
-		{ft_top_and_push(&pg->a, ft_find_min_idx(pg->a), A);
-		i++;}
+		ft_top_and_push(&pg->a, ft_find_min_idx(pg->a), A);
 	ft_sort_3(&pg->a, A);
-	while (i > 0)
-		{ft_push(&pg->a, A);
-		i--;}
+	while (pg->b.size > 0)
+		ft_push(&pg->a, A);
 }
 
 void	sort_tab(t_prog *pg)
@@ -257,20 +252,22 @@ int	find_closest_min(t_prog pg, t_stack stack, int chunk)
 	while (i < stack.size && from_top == -1)
 	{
 		if (stack.array[i] >= pg.sorted[pg.size / chunk_nb * (chunk - 1)]
-			&& stack.array[i] <= pg.sorted[pg.size / chunk_nb * chunk])
+			&& (stack.array[i] <= pg.sorted[pg.size / chunk_nb * chunk]
+			    || chunk == 5))
 			from_top = i;
 		// printf("----------\n");
-		// printf("\nvaleur =%d\n", stack.array[i]);
-		// printf("entre %d\n", pg.sorted[pg.size / chunk_nb * (chunk - 1)]);
-		// printf("et %d\n", pg.sorted[pg.size / chunk_nb * (chunk)]);
-		// printf("fromtop =%d\n", from_bot);
+		// printf("\nvaleur = %d\n", stack.array[i]);
+		// printf("entre %d ", pg.sorted[pg.size / chunk_nb * (chunk - 1)]);
+		// printf("et %d ?\n", pg.sorted[pg.size / chunk_nb * (chunk)]);
+		// printf("fromtop =%d\n", from_top);
 		i++;
 	}
 	i = stack.size - 1;
 	while (i >= 0 && from_bot == -1)
 	{
-		if (stack.array[i] >= pg.sorted[(pg.size / chunk_nb) * (chunk - 1)]
-			&& stack.array[i] <= pg.sorted[(pg.size / chunk_nb) * chunk])
+		if (stack.array[i] >= pg.sorted[pg.size / chunk_nb * (chunk - 1)]
+			&& (stack.array[i] <= pg.sorted[pg.size / chunk_nb * chunk]
+			    || chunk == 5))
 			from_bot = i;
 		//printf("\nvaleur =%d\n", stack.array[i]);
 		// printf("entre %d\n", pg.sorted[(pg.size / chunk_nb) * (chunk - 1)]);
@@ -296,17 +293,12 @@ void	ft_sort_up_to_500(t_prog *pg)
 	while (pg->a.size > 5)
 	{
 		i = find_closest_min(*pg, pg->a, chunk);
-		//printf("i = %d\n", i);
-		//printf("chunk = %d\n", chunk);
 		if (i == -1 && chunk < 11 * (pg->size > 100) + 5 * (pg->size <= 100))
 			chunk += 1;
-		//printf("chunk = %d\n", chunk);
 		if (i != -1)
 			ft_top_and_push(&pg->a, i, A);
 		//ft_print_stacks(*pg);
-		//usleep(100000);
 	}
-	ft_sort_up_to_5(pg);
 	while (pg->b.size > 0)
 		ft_top_and_push(&pg->b, ft_find_max_idx(pg->b), B);
 }

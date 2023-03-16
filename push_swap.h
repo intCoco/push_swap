@@ -35,6 +35,7 @@ typedef struct s_prog
 	int		max;
 	int		min;
 	int		size;
+	int		chunk_nb;
 }	t_prog;
 
 /* void	ft_pa(t_prog *pg);

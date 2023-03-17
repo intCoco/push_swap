@@ -37,6 +37,8 @@ void	ft_exit(t_prog *pg, int c)
 			free(pg->a.array);
 		if (pg->b.array)
 			free(pg->b.array);
+		if (pg->sorted)
+			free(pg->sorted);
 	}
 	//system("leaks push_swap");
 	exit(c);
@@ -155,16 +157,17 @@ int	ft_find_min_idx(t_stack stack)
 	int	idx;
 	int	min;
 
-	i = -1;
+	i = 0;
 	idx = 0;
 	min = stack.array[0];
-	while (++i < stack.size)
+	while (i < stack.size)
 	{
 		if (min > stack.array[i])
 		{
 			min = stack.array[i];
 			idx = i;
 		}
+		i++;
 	}
 	return (idx);
 }
@@ -175,16 +178,17 @@ int	ft_find_max_idx(t_stack stack)
 	int	idx;
 	int	max;
 
-	i = -1;
+	i = 0;
 	idx = 0;
 	max = stack.array[0];
-	while (++i < stack.size)
+	while (i < stack.size)
 	{
 		if (max < stack.array[i])
 		{
 			max = stack.array[i];
 			idx = i;
 		}
+		i++;
 	}
 	return (idx);
 }
@@ -207,14 +211,14 @@ void	ft_top_and_push(t_stack *stack, int i, char c)
 		ft_push(stack->other, A);
 }
 
-void	ft_sort_up_to_5(t_prog *pg)
+/*void	ft_sort_up_to_5(t_prog *pg)	//Inutile?
 {
 	while (pg->a.size > 3)
 		ft_top_and_push(&pg->a, ft_find_min_idx(pg->a), A);
 	ft_sort_3(&pg->a, A);
 	while (pg->b.size > 0)
 		ft_push(&pg->a, A);
-}
+}*/
 
 void	sort_tab(t_prog *pg)
 {
@@ -222,38 +226,20 @@ void	sort_tab(t_prog *pg)
 	ft_sort_int_tab(pg->sorted, pg->a.size);
 }
 
-void	find_min_max(t_prog *pg)
-{
-	int	i;
-
-	i = -1;
-	pg->min = pg->a.array[0];
-	pg->max = pg->a.array[0];
-	while (++i < pg->a.size)
-	{
-		if (pg->min > pg->a.array[i])
-			pg->min = pg->a.array[i];
-		if (pg->max < pg->a.array[i])
-			pg->min = pg->a.array[i];
-	}
-}
-
 int	find_closest_min(t_prog pg, t_stack stack, int chunk)
 {
 	int	i;
 	int	from_top;
 	int	from_bot;
-	int	chunk_nb;
 
 	i = 0;
-	chunk_nb = 11 * (pg.size > 100) + 5 * (pg.size <= 100) - 1;
 	from_top = -1;
 	from_bot = -1;
 	while (i < stack.size && from_top == -1)
 	{
 		if (stack.array[i] >= pg.sorted[pg.size / chunk_nb * (chunk - 1)]
 			&& (stack.array[i] <= pg.sorted[pg.size / chunk_nb * chunk]
-			    || chunk == 5))
+				|| chunk == pg->chunk_nb))
 			from_top = i;
 		// printf("----------\n");
 		// printf("\nvaleur = %d\n", stack.array[i]);
@@ -267,7 +253,7 @@ int	find_closest_min(t_prog pg, t_stack stack, int chunk)
 	{
 		if (stack.array[i] >= pg.sorted[pg.size / chunk_nb * (chunk - 1)]
 			&& (stack.array[i] <= pg.sorted[pg.size / chunk_nb * chunk]
-			    || chunk == 5))
+				|| chunk == pg->chunk_nb))
 			from_bot = i;
 		//printf("\nvaleur =%d\n", stack.array[i]);
 		// printf("entre %d\n", pg.sorted[(pg.size / chunk_nb) * (chunk - 1)]);
@@ -289,16 +275,16 @@ void	ft_sort_up_to_500(t_prog *pg)
 	int	i;
 
 	chunk = 1;
-	find_min_max(pg);
-	while (pg->a.size > 5)
+	while (pg->a.size > 3)
 	{
 		i = find_closest_min(*pg, pg->a, chunk);
-		if (i == -1 && chunk < 11 * (pg->size > 100) + 5 * (pg->size <= 100))
+		if (i == -1 && chunk < pg->chunk_nb)
 			chunk += 1;
-		if (i != -1)
+		else
 			ft_top_and_push(&pg->a, i, A);
 		//ft_print_stacks(*pg);
 	}
+	ft_sort_3(pg);
 	while (pg->b.size > 0)
 		ft_top_and_push(&pg->b, ft_find_max_idx(pg->b), B);
 }
@@ -321,6 +307,7 @@ int	main(int ac, char **av)
 	ft_char_check(ac, av2);
 	convert(pg, ac, av2);
 	pg->size = pg->a.size;
+	pg->chunk_nb = 11 * (pg->size > 100) + 5 * (pg->size <= 100);
 	pg->a.other = &pg->b;
 	pg->b.other = &pg->a;
 	ft_double_check(pg);
@@ -328,8 +315,8 @@ int	main(int ac, char **av)
 	sort_tab(pg);
 	if (pg->size == 2)
 		ft_swap(&pg->a, A);
-	else if (pg->size <= 5)
-		ft_sort_up_to_5(pg);
+	/*else if (pg->size <= 5)
+		ft_sort_up_to_5(pg);*/
 	else if (pg->size <= 500)
 		ft_sort_up_to_500(pg);
 	// ft_print_stacks(*pg);

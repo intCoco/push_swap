@@ -237,9 +237,9 @@ int	find_closest_min(t_prog pg, t_stack stack, int chunk)
 	from_bot = -1;
 	while (i < stack.size && from_top == -1)
 	{
-		if (stack.array[i] >= pg.sorted[pg.size / chunk_nb * (chunk - 1)]
-			&& (stack.array[i] <= pg.sorted[pg.size / chunk_nb * chunk]
-				|| chunk == pg->chunk_nb))
+		if (stack.array[i] >= pg.sorted[pg.size / pg.chunk_nb * (chunk - 1)]
+			&& (stack.array[i] <= pg.sorted[pg.size / pg.chunk_nb * chunk]
+				|| chunk == pg.chunk_nb))
 			from_top = i;
 		// printf("----------\n");
 		// printf("\nvaleur = %d\n", stack.array[i]);
@@ -251,9 +251,9 @@ int	find_closest_min(t_prog pg, t_stack stack, int chunk)
 	i = stack.size - 1;
 	while (i >= 0 && from_bot == -1)
 	{
-		if (stack.array[i] >= pg.sorted[pg.size / chunk_nb * (chunk - 1)]
-			&& (stack.array[i] <= pg.sorted[pg.size / chunk_nb * chunk]
-				|| chunk == pg->chunk_nb))
+		if (stack.array[i] >= pg.sorted[pg.size / pg.chunk_nb * (chunk - 1)]
+			&& (stack.array[i] <= pg.sorted[pg.size / pg.chunk_nb * chunk]
+				|| chunk == pg.chunk_nb))
 			from_bot = i;
 		//printf("\nvaleur =%d\n", stack.array[i]);
 		// printf("entre %d\n", pg.sorted[(pg.size / chunk_nb) * (chunk - 1)]);
@@ -284,7 +284,7 @@ void	ft_sort_up_to_500(t_prog *pg)
 			ft_top_and_push(&pg->a, i, A);
 		//ft_print_stacks(*pg);
 	}
-	ft_sort_3(pg);
+	ft_sort_3(pg, A);
 	while (pg->b.size > 0)
 		ft_top_and_push(&pg->b, ft_find_max_idx(pg->b), B);
 }

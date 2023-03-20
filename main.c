@@ -284,7 +284,7 @@ void	ft_sort_up_to_500(t_prog *pg)
 			ft_top_and_push(&pg->a, i, A);
 		//ft_print_stacks(*pg);
 	}
-	ft_sort_3(&pg, A);
+	ft_sort_3(&pg->a, A);
 	while (pg->b.size > 0)
 		ft_top_and_push(&pg->b, ft_find_max_idx(pg->b), B);
 }

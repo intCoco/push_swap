@@ -58,6 +58,8 @@ int	ft_psw_atoi(t_prog *pg, char *str)
 			sign *= -1;
 		i++;
 	}
+	if (str[i] == '\0')
+		ft_exit(pg, 1);
 	nbint = 0;
 	while ((str[i] >= '0') && (str[i] <= '9'))
 	{

@@ -277,7 +277,7 @@ void	ft_sort_up_to_500(t_prog *pg)
 	int	i;
 
 	chunk = 1;
-	while (pg->a.size > 3)
+	while (pg->a.size > 0)
 	{
 		i = find_closest_min(*pg, pg->a, chunk);
 		if (i == -1 && chunk < pg->chunk_nb)
@@ -286,7 +286,6 @@ void	ft_sort_up_to_500(t_prog *pg)
 			ft_top_and_push(&pg->a, i, A);
 		//ft_print_stacks(*pg);
 	}
-	ft_sort_3(&pg->a, A);
 	while (pg->b.size > 0)
 		ft_top_and_push(&pg->b, ft_find_max_idx(pg->b), B);
 }

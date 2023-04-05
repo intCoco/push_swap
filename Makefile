@@ -1,11 +1,21 @@
 NAME =	push_swap
-SRC = 	main.c \
-		manip_functions.c \
 
-OBJ = $(SRC:.c=.o)
+SRC = 	sources/main.c \
+		sources/convert.c \
+		sources/parsing.c \
+		sources/searching_functions.c \
+		sources/manip_functions.c \
+		sources/other.c \
+
+OBJ = 	main.o \
+		convert.o \
+		parsing.o \
+		searching_functions.o \
+		manip_functions.o \
+		other.o \
 
 FLAGS = -Wall -Wextra -Werror
-LINKS = libft/libft.a
+LINKS = includes/libft/libft.a
 
 NONE='\033[0m'
 GREEN='\033[32m'
@@ -17,7 +27,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@echo $(CURSIVE)$(GRAY) "  - Compiling libft..." $(NONE)
-	@make -C libft/
+	@make -C includes/libft/
 	@echo $(CURSIVE)$(GRAY) "  - Compiling $(NAME)..." $(NONE)
 	@gcc $(FLAGS) $(OBJ) $(LINKS) -o $(NAME)
 	@echo $(GREEN)"	- Compiled -"$(NONE)
@@ -33,13 +43,13 @@ exe: all
 
 clean:
 	@echo $(CURSIVE)$(RED) "  - Removing libft object files..." $(NONE)
-	@make clean -C libft/
+	@make clean -C includes/libft/
 	@echo $(CURSIVE)$(RED) "  - Removing object files..." $(NONE)
 	@rm -rf $(OBJ)
 
 fclean: clean
 	@echo $(CURSIVE)$(RED) "  - Removing libft.a..." $(NONE)
-	@make fclean -C libft/
+	@make fclean -C includes/libft/
 	@echo $(CURSIVE)$(RED) "  - Removing $(NAME)..." $(NONE)
 	@rm -rf $(NAME)
 

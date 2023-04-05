@@ -32,8 +32,6 @@ char	*ft_substr(char const *str, unsigned int start, size_t l)
 		return (ft_memset(res, '\0', l));
 	if (start < slen)
 	{
-		if (start < 0)
-			start = slen + start;
 		while (++i < l && str[start + i])
 			res[i] = ((char *)str)[start + i];
 	}

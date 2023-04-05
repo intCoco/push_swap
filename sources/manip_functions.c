@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   manip_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chuchard <chuchard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chuchard <chuchard@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 21:22:42 by chuchard          #+#    #+#             */
-/*   Updated: 2023/03/08 16:29:10 by chuchard         ###   ########.fr       */
+/*   Updated: 2023/04/05 18:20:29 by chuchard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 void	ft_push(t_stack *stack, char c)
 {
@@ -61,6 +61,24 @@ void	ft_swap(t_stack *stack, char c)
 	stack->array[0] = stack->array[1];
 	stack->array[1] = tmp;
 	ft_printf("s%c\n", c);
+}
+
+void	ft_top_and_push(t_stack *stack, int i, char c)
+{
+	while (i <= (stack->size - 1) / 2 && i > 0)
+	{
+		ft_rot(stack, c);
+		i--;
+	}
+	while (i > (stack->size - 1) / 2 && i < stack->size)
+	{
+		ft_rev_rot(stack, c);
+		i++;
+	}
+	if (c == A)
+		ft_push(stack->other, B);
+	else
+		ft_push(stack->other, A);
 }
 
 /* void	ft_pa(t_prog *pg)

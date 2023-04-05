@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chuchard <chuchard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chuchard <chuchard@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:36:11 by chuchard          #+#    #+#             */
-/*   Updated: 2023/03/08 19:35:02 by chuchard         ###   ########.fr       */
+/*   Updated: 2023/04/05 18:53:32 by chuchard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,22 @@ typedef struct s_prog
 	int		chunk_nb;
 }	t_prog;
 
-/* void	ft_pa(t_prog *pg);
-void	ft_pb(t_prog *pg);
-void	ft_ra(t_prog *pg);
-void	ft_rb(t_prog *pg);
-void	ft_rra(t_prog *pg);
-void	ft_rrb(t_prog *pg);
-void	ft_sa(t_prog *pg);
-void	ft_sb(t_prog *pg); */
 void	ft_rot(t_stack *stack, char c);
 void	ft_rev_rot(t_stack *stack, char c);
 void	ft_swap(t_stack *stack, char c);
 void	ft_push(t_stack *stack, char c);
+int		ft_psw_atoi(t_prog *pg, char *str);
+void	convert(t_prog *pg, int ac, char **av);
+void	ft_exit(t_prog *pg, int c);
+void	sort_tab(t_prog *pg);
+void	ft_char_check(int ac, char **av);
+void	ft_issorted(t_prog *pg);
+void	ft_double_check(t_prog *pg);
+int		ft_find_min_idx(t_stack stack);
+int		ft_find_max_idx(t_stack stack);
+int		find_closest_min(t_prog pg, t_stack stack, int chunk);
+void	ft_top_and_push(t_stack *stack, int i, char c);
+
+void	ft_print_stacks(t_prog pg);
 
 #endif
